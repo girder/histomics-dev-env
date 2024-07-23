@@ -9,9 +9,21 @@ services:
     ports:
       - "27017:27017"
 
+  rabbitmq:
+    image: rabbitmq:3
+    environment:
+      - RABBITMQ_FEATURE_FLAGS=
+    ports:
+      - ${DOCKER_RABBITMQ_PORT-5672}:5672
+      - ${DOCKER_RABBITMQ_CONSOLE_PORT-15672}:15672
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq/mnesia
+
   histomicsui:
     environment:
       - GIRDER_MONGO_URI=mongodb://mongodb:27017/girder
+      - GIRDER_BROKER_URI=amqp://rabbitmq:5672
+      - GIRDER_WORKER_BROKER=amqp://rabbitmq:5672
     command: girder serve -H 0.0.0.0
     ports:
       - "8080:8080"
@@ -26,6 +38,18 @@ services:
       context: .
       dockerfile: ./histomicsui.Dockerfile
 
+  worker:
+    environment:
+      - GIRDER_WORKER_BROKER=amqp://rabbitmq:5672
+    command: girder-worker
+    volumes:
+      - ./HistomicsUI/histomicsui:/opt/histomicsui/histomicsui
+    build:
+      context: .
+      dockerfile: ./worker.Dockerfile
+
+
 volumes:
   db:
   assetstore:
+  rabbitmq:

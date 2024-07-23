@@ -1,8 +1,8 @@
 ## HistomicsUI development environment
 
-### Note for Mac M1 users
+### Note for Mac users
 
-On Mac ARM chips, you must set the following environment variable prior to building:
+On Macs with ARM CPUs, you must set the following environment variable prior to building:
 
     export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
@@ -30,8 +30,12 @@ The server will be accessible from your host at `0.0.0.0:8080`.
 
 #### Backend development
 
-Whenever you change a Python file
-within one of the plugins cloned into the subdirectories, it will auto-reload the server.
+Whenever you change a Python file within one of the plugins cloned into the subdirectories, it will
+auto-reload the server.
+
+Unfortunately, one limitation is that girder-worker (celery) does not auto-reload on code changes.
+The container will need to be manually restarted in order to reflect changes in celery tasks or
+girder worker configuration.
 
 #### Frontend development
 
