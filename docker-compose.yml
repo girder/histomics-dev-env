@@ -31,8 +31,8 @@ services:
       - assetstore:/assetstore
       - ./girder_worker/girder_worker:/opt/girder_worker/girder_worker
       - ./slicer_cli_web/slicer_cli_web:/opt/slicer_cli_web/slicer_cli_web
-      - ./large_image/girder:/opt/large_image/girder
-      - ./large_image/girder_annotation:/opt/large_image/girder_annotation
+      - ./large_image/girder/girder_large_image:/opt/large_image/girder/girder_large_image
+      - ./large_image/girder_annotation/girder_large_image_annotation:/opt/large_image/girder_annotation/girder_large_image_annotation
       - ./HistomicsUI/histomicsui:/opt/HistomicsUI/histomicsui
     build:
       context: .
