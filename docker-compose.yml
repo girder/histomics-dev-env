@@ -33,7 +33,7 @@ services:
       - ./slicer_cli_web/slicer_cli_web:/opt/slicer_cli_web/slicer_cli_web
       - ./large_image/girder:/opt/large_image/girder
       - ./large_image/girder_annotation:/opt/large_image/girder_annotation
-      - ./HistomicsUI/histomics:/opt/HistomicsUI/histomics
+      - ./HistomicsUI/histomicsui:/opt/HistomicsUI/histomicsui
     build:
       context: .
       dockerfile: ./histomicsui.Dockerfile
