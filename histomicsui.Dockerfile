@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -qy \
     libsasl2-dev \
     python3-pip \
     curl \
+    wget \
 && apt-get clean && rm -rf /var/lib/apt/lists/* \
 && python3 -m pip install --upgrade --no-cache-dir \
     pip \
@@ -37,6 +38,10 @@ RUN cd /opt && \
     cd ./slicer_cli_web/web_client && npm i && npm run build && cd ../.. && \
     pip install --no-cache-dir -e .[girder]
 
+# TODO this can be removed once a fixed large-image-source-zarr is published
+# https://github.com/girder/large_image/commit/6f9c0de4b2533793e5dbfce4ba574bb29e6c0dff
+RUN pip install numcodecs imagecodecs
+
 RUN cd /opt && \
     git clone https://github.com/girder/large_image.git && \
     cd /opt/large_image && \
@@ -55,5 +60,14 @@ RUN cd /opt && \
     pip install --no-cache-dir -e .[analysis]
 
 RUN pip install gunicorn 'girder>=5.0.0a4' 'girder-sentry>=5.0.0a4'
+
+RUN cd /opt/HistomicsUI/histomicsui/web_client && \
+    npm i && npx playwright install-deps && npx playwright install
+
+# Install mongosh (used in web client testing)
+RUN wget -qO- https://www.mongodb.org/static/pgp/server-7.0.asc | tee /etc/apt/trusted.gpg.d/server-7.0.asc && \
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-7.0.list && \
+    apt-get update && \
+    apt-get install -y mongodb-mongosh
 
 WORKDIR /opt/
