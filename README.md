@@ -1,11 +1,5 @@
 ## HistomicsUI development environment
 
-### Note for Mac users
-
-On Macs with ARM CPUs, you must set the following environment variable prior to building:
-
-    export DOCKER_DEFAULT_PLATFORM=linux/amd64
-
 ### Initial setup
 
 The first time you use this, run:
@@ -42,3 +36,12 @@ girder worker configuration.
 For front-end development, you can `cd` to the relevant `web_client` directory within the
 subdirectories on your host and run `npm run watch`. Changes will trigger a rebuild, then you will
 need to manually refresh your browser to see the changes.
+
+
+#### Running the tests
+
+To run browser tests, first ensure your docker-compose is running, then run:
+
+```bash
+docker-compose run --rm histomicsui /bin/bash -c 'cd /opt/HistomicsUI/histomicsui/web_client && npm run test'
+```

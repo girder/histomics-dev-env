@@ -7,7 +7,7 @@ services:
     volumes:
       - db:/data/db
     ports:
-      - "27017:27017"
+      - 27017:27017
 
   rabbitmq:
     image: rabbitmq:3
@@ -24,9 +24,13 @@ services:
       - GIRDER_MONGO_URI=mongodb://mongodb:27017/girder
       - GIRDER_BROKER_URI=amqp://rabbitmq:5672
       - GIRDER_WORKER_BROKER=amqp://rabbitmq:5672
+      - GIRDER_CLIENT_TESTING_MONGO_URI=mongodb://mongodb:27017
+      - HEADLESS=true
     command: girder serve -H 0.0.0.0
     ports:
-      - "8080:8080"
+      - 8080:8080
+      # 9323 is used by playwright for the test browser which remains open in failure cases
+      - 9323:9323
     volumes:
       - assetstore:/assetstore
       - ./girder_worker/girder_worker:/opt/girder_worker/girder_worker
@@ -37,6 +41,7 @@ services:
     build:
       context: .
       dockerfile: ./histomicsui.Dockerfile
+    platform: linux/amd64
 
   worker:
     environment:
@@ -47,6 +52,7 @@ services:
     build:
       context: .
       dockerfile: ./worker.Dockerfile
+    platform: linux/amd64
 
 
 volumes:
