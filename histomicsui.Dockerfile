@@ -42,6 +42,8 @@ RUN cd /opt && \
 # https://github.com/girder/large_image/commit/6f9c0de4b2533793e5dbfce4ba574bb29e6c0dff
 RUN pip install numcodecs imagecodecs
 
+# TODO instead of installing [sources], we need to editably install all source packages.
+# Using the [sources] extra installs them from pypi instead of local editable versions.
 RUN cd /opt && \
     git clone https://github.com/girder/large_image.git && \
     cd /opt/large_image && \

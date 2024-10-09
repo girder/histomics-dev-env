@@ -43,5 +43,33 @@ need to manually refresh your browser to see the changes.
 To run browser tests, first ensure your docker-compose is running, then run:
 
 ```bash
-docker-compose run --rm histomicsui /bin/bash -c 'cd /opt/HistomicsUI/histomicsui/web_client && npm run test'
+docker-compose run -p 9323:9323 --rm histomicsui /bin/bash -c 'cd /opt/HistomicsUI/histomicsui/web_client && npm run test'
 ```
+
+#### Recording new playwright tests
+
+### Initial setup
+
+For recording front-end tests with interactive playwright, it's easiest to run playwright natively
+on your host. Install the VSCode plugin for Playwright, and run the following command once:
+
+```bash
+cd HistomicsUI/histomicsui/web_client && npx playwright install chromium
+```
+
+In your VSCode `settings.json`, add the following configuration:
+
+```json
+"playwright.env": {
+    "GIRDER_CLIENT_TESTING_KEEP_SERVER_ALIVE": "true",
+    "HISTOMICS_PLAYWRIGHT_DEV": "true",
+},
+```
+
+This will keep girder running after the test runs, allowing you to record at your cursor.
+
+### Recording
+
+In the `Testing` view in VSCode, find the test you want to append to, select it, and click "Run Test".
+Open the test file in the editor, place the cursor at the relevant position, and click "Record at cursor".
+Then interact with the Chromium window to record the test script.

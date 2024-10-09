@@ -29,15 +29,27 @@ services:
     command: girder serve -H 0.0.0.0
     ports:
       - 8080:8080
-      # 9323 is used by playwright for the test browser which remains open in failure cases
-      - 9323:9323
     volumes:
       - assetstore:/assetstore
       - ./girder_worker/girder_worker:/opt/girder_worker/girder_worker
       - ./slicer_cli_web/slicer_cli_web:/opt/slicer_cli_web/slicer_cli_web
+      - ./large_image/sources/gdal/large_image_source_gdal:/opt/large_image/sources/gdal/large_image_source_gdal
+      - ./large_image/sources/ometiff/large_image_source_ometiff:/opt/large_image/sources/ometiff/large_image_source_ometiff
+      - ./large_image/sources/tiff/large_image_source_tiff:/opt/large_image/sources/tiff/large_image_source_tiff
+      - ./large_image/sources/vips/large_image_source_vips:/opt/large_image/sources/vips/large_image_source_vips
+      - ./large_image/sources/openslide/large_image_source_openslide:/opt/large_image/sources/openslide/large_image_source_openslide
+      - ./large_image/sources/zarr/large_image_source_zarr:/opt/large_image/sources/zarr/large_image_source_zarr
+      - ./large_image/sources/pil/large_image_source_pil:/opt/large_image/sources/pil/large_image_source_pil
+      - ./large_image/sources/mapnik/large_image_source_mapnik:/opt/large_image/sources/mapnik/large_image_source_mapnik
+      - ./large_image/sources/multi/large_image_source_multi:/opt/large_image/sources/multi/large_image_source_multi
+      - ./large_image/sources/tifffile/large_image_source_tifffile:/opt/large_image/sources/tifffile/large_image_source_tifffile
+      - ./large_image/sources/rasterio/large_image_source_rasterio:/opt/large_image/sources/rasterio/large_image_source_rasterio
+      - ./large_image/sources/nd2/large_image_source_nd2:/opt/large_image/sources/nd2/large_image_source_nd2
+      - ./large_image/sources/openjpeg/large_image_source_openjpeg:/opt/large_image/sources/openjpeg/large_image_source_openjpeg
       - ./large_image/girder/girder_large_image:/opt/large_image/girder/girder_large_image
       - ./large_image/girder_annotation/girder_large_image_annotation:/opt/large_image/girder_annotation/girder_large_image_annotation
       - ./HistomicsUI/histomicsui:/opt/HistomicsUI/histomicsui
+      - ./HistomicsUI/sample_data:/opt/HistomicsUI/sample_data
     build:
       context: .
       dockerfile: ./histomicsui.Dockerfile
