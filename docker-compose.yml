@@ -32,7 +32,7 @@ services:
     volumes:
       - assetstore:/assetstore
       - ./girder_worker/girder_worker:/opt/girder_worker/girder_worker
-      - ./slicer_cli_web/slicer_cli_web:/opt/slicer_cli_web/slicer_cli_web
+      - ./girder/plugins/slicer_cli_web/girder_slicer_cli_web:/opt/girder/plugins/slicer_cli_web/girder_slicer_cli_web
       - ./large_image/sources/gdal/large_image_source_gdal:/opt/large_image/sources/gdal/large_image_source_gdal
       - ./large_image/sources/ometiff/large_image_source_ometiff:/opt/large_image/sources/ometiff/large_image_source_ometiff
       - ./large_image/sources/tiff/large_image_source_tiff:/opt/large_image/sources/tiff/large_image_source_tiff

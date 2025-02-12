@@ -5,8 +5,8 @@ RUN curl -sSL https://get.docker.com/ | sh
 RUN git clone -b girder-5 https://github.com/girder/girder_worker && \
     pip install --no-cache-dir -e ./girder_worker
 
-RUN git clone -b girder-5 https://github.com/girder/slicer_cli_web && \
-    pip install --no-cache-dir -e ./slicer_cli_web[worker]
+RUN git clone -b v4-integration https://github.com/girder/girder && \
+    pip install --no-cache-dir -e ./girder/plugins/slicer_cli_web[worker]
 
 # TODO this can be removed once a fixed large-image-source-zarr is published
 # https://github.com/girder/large_image/commit/6f9c0de4b2533793e5dbfce4ba574bb29e6c0dff
