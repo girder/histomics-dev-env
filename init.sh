@@ -27,4 +27,4 @@ pushd HistomicsUI/histomicsui/web_client
 npm i && npm run build
 popd
 
-docker-compose build
+docker compose build

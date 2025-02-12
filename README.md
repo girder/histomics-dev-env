@@ -17,7 +17,7 @@ place in the container at runtime. Open your IDE in the repository subdirectorie
 working on them. To spin up the dev environment, run:
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
 The server will be accessible from your host at `0.0.0.0:8080`.
@@ -43,7 +43,7 @@ need to manually refresh your browser to see the changes.
 To run browser tests, first ensure your docker-compose is running, then run:
 
 ```bash
-docker-compose run -p 9323:9323 --rm histomicsui /bin/bash -c 'cd /opt/HistomicsUI/histomicsui/web_client && npm run test'
+docker compose run -p 9323:9323 --rm histomicsui /bin/bash -c 'cd /opt/HistomicsUI/histomicsui/web_client && npm run test'
 ```
 
 ### Recording new playwright tests
