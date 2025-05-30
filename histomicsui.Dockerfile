@@ -35,7 +35,7 @@ RUN cd /opt && \
     git clone https://github.com/girder/girder && \
     cd /opt/girder && \
     git checkout v4-integration && \
-    cd ./plugins/slicer_cli_web/girder_slicer_cli_web/web_client && npm i && npm run build && cd ../.. && \
+    cd ./plugins/slicer_cli_web/slicer_cli_web/web_client && npm i && npm run build && cd ../.. && \
     pip install --no-cache-dir -e .[girder]
 
 # TODO this can be removed once a fixed large-image-source-zarr is published
