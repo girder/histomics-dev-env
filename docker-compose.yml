@@ -33,6 +33,7 @@ services:
       - assetstore:/assetstore
       - ./girder_worker/girder_worker:/opt/girder_worker/girder_worker
       - ./girder/plugins/slicer_cli_web/girder_slicer_cli_web:/opt/girder/plugins/slicer_cli_web/girder_slicer_cli_web
+      - ./girder/plugins/worker/girder_plugin_worker:/opt/girder/plugins/worker/girder_plugin_worker
       - ./large_image/sources/gdal/large_image_source_gdal:/opt/large_image/sources/gdal/large_image_source_gdal
       - ./large_image/sources/ometiff/large_image_source_ometiff:/opt/large_image/sources/ometiff/large_image_source_ometiff
       - ./large_image/sources/tiff/large_image_source_tiff:/opt/large_image/sources/tiff/large_image_source_tiff
@@ -58,13 +59,16 @@ services:
   worker:
     environment:
       - GIRDER_WORKER_BROKER=amqp://rabbitmq:5672
-    command: girder-worker
+    command: celery -A girder_worker.app worker
     volumes:
       - ./HistomicsUI/histomicsui:/opt/histomicsui/histomicsui
+      - /var/run/docker.sock:/var/run/docker.sock
     build:
       context: .
       dockerfile: ./worker.Dockerfile
     platform: linux/amd64
+    depends_on :
+      - rabbitmq
 
 
 volumes:
