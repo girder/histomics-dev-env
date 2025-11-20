@@ -11,7 +11,7 @@ pushd girder_worker/girder_worker/girder_plugin/web_client
 npm i && npm run build
 popd
 
-pushd girder/plugins/slicer_cli_web/girder_slicer_cli_web/web_client
+pushd girder/plugins/slicer_cli_web/slicer_cli_web/web_client
 npm i && npm run build
 popd
 
